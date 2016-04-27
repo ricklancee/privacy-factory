@@ -1,31 +1,31 @@
-'use strict';
+var factory = function() {
+    'use strict';
 
-var factory = function(func) {
-    var obj = {};
-    func.call(obj);
-    return obj;
-};
+    var extend = function(object) {
+        var extendees = Array.prototype.slice.call(arguments, 1);
 
-var cards = function() {
-    var cards = ['A', 'B', 'C'];
+        var length = extendees.length;
+        for (var i = 0; i < length; i++) {
+            var source = extendees[i];
+            var keys = Object.keys(source);
+            var keyLength = keys.length;
 
-    this.addCard = function(card) {
-        cards.push(card);
+            for (var j = 0; j < keyLength; j++) {
+                object[keys[j]] = source[keys[j]];
+            }
+        }
+
+        return object;
+    };
+
+    return {
+        compose: function(into) {
+            return extend.apply(null, arguments);
+        },
+        create: function(func) {
+            var obj = {};
+            func.call(obj);
+            return obj;
+        }
     }
-
-    this.getCards = function() {
-        return cards;
-    }
 };
-
-var newCards = factory(cards);
-var otherCards = factory(cards);
-
-console.log(newCards.getCards(), 'newCards: Should be [A, B, C]');
-console.log('Add a new card `D` to newCards');
-newCards.addCard('D');
-console.log(otherCards.getCards(), 'otherCards: Should be [A, B, C]'); // [A, B, C]
-console.log('Add a new card `X` to otherCards');
-otherCards.addCard('X');
-console.log(newCards.getCards(), 'newCards: Should be [A, B, C, D]');
-console.log(otherCards.getCards(), 'otherCards: Should be [A, B, C, X]');
