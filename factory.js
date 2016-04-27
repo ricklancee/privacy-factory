@@ -1,6 +1,6 @@
-const factory = function() {
-    'use strict';
+'use strict';
 
+const factory = function() {
     const extend = function(object) {
         const extendees = Array.prototype.slice.call(arguments, 1);
 
@@ -19,7 +19,7 @@ const factory = function() {
     };
 
     return {
-        compose: function(into) {
+        compose: function() {
             return extend.apply(null, arguments);
         },
         create: function(func) {
@@ -27,5 +27,5 @@ const factory = function() {
             func.call(obj);
             return obj;
         }
-    }
+    };
 };
