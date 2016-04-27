@@ -7,15 +7,23 @@ Instead of using `new Function()` use a factory to create new instances that ens
 
 ```js
 var func = function() {
-    var privateVar = 'A';
+    var A = 'A';
 
     this.getA = function() {
+        return A;
+    };
 
-    }
-}
+    this.setA = function(x) {
+        a = x;
+    };
+};
 
 var func1 = factory().create(func);
 var func2 = factory().create(func);
+
+func1.setA('B');
+func1.getA(); // B
+func2.getA(); // A
 ```
 
 Compose two different object.
@@ -27,7 +35,7 @@ var funcA = function() {
     this.getFuncAVar = function() {
         return privateVar;
     };
-}
+};
 
 var funcB = function() {
     var privateVar = 'B';
@@ -35,12 +43,15 @@ var funcB = function() {
     this.getFuncBVar = function() {
         return privateVar;
     };
-}
+};
 
 var funcA1 = factory().create(funcA);
 var funcB1 = factory().create(funcB);
 
 var composed = factory().compose(funcA1, funcB1);
+
+composed.getFuncBVar(); // 'B';
+composed.getFuncAVar(); // 'A';
 
 ```
 
