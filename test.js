@@ -26,7 +26,7 @@ console.log(someOtherThing);
 console.log(someOtherThing.getPrivateVar()); // foo
 console.log(newCards.getCards()); // a b c
 
-var composedObj = factory().compose(newCards, someOtherThing);
+var composedObj = factory().compose(newCards, someOtherThing, Backbone.Events);
 console.log(composedObj);
 console.log(composedObj.getPrivateVar()); // foo
 console.log(composedObj.getCards()); // a b c

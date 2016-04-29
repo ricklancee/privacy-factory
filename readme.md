@@ -27,6 +27,7 @@ func2.getA(); // A
 ```
 
 Compose two different object.
+For instance you can easily add Backbone events to any function.
 
 ```js
 var funcA = function() {
@@ -48,7 +49,7 @@ var funcB = function() {
 var funcA1 = factory().create(funcA);
 var funcB1 = factory().create(funcB);
 
-var composed = factory().compose(funcA1, funcB1);
+var composed = factory().compose(funcA1, funcB1, Backbone.Events);
 
 composed.getFuncBVar(); // 'B';
 composed.getFuncAVar(); // 'A';
