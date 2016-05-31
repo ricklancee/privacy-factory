@@ -2,6 +2,8 @@
 
 Instead of using `new Function()` use a factory to create new instances that ensure data privacy. Allows to compose different objects toghether. "Favor  composition over inheritance." 
 
+This is based on a information from the talk [Classical Inheritance is Obsolete - How to Think in Prototypal OO by Eric Elliot](https://vimeo.com/69255635) as an exercise.
+
 
 ### Usage
 
