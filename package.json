@@ -1,0 +1,32 @@
+{
+  "name": "privacy-factory",
+  "version": "1.0.0",
+  "description": "Instead of using `new Function()` use a factory to create new instances that ensure data privacy. Allows to compose different objects toghether. \"Favor  composition over inheritance.\"",
+  "main": "factory.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricklancee/privacy-factory.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ricklancee/privacy-factory/issues"
+  },
+  "homepage": "https://github.com/ricklancee/privacy-factory#readme",
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015-node4"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.17.0"
+  }
+}

@@ -1,32 +1,51 @@
+import test from 'ava';
+import factory from './factory';
 
-var cards = function() {
-    var cards = ['A', 'B', 'C'];
+test('it should be able to keep data private', t => {
+  const fn = function() {
+    var A = 'A';
 
-    this.addCard = function(card) {
-        cards.push(card);
-    }
+    this.getA = function() {
+        return A;
+    };
 
-    this.getCards = function() {
-        return cards;
-    }
-};
+    this.setA = function(x) {
+        A = x;
+    };
+  };
 
-var otherThing = function() {
-    var privateVar = 'foo';
+  const func1 = factory().create(fn);
+  const func2 = factory().create(fn);
 
-    this.getPrivateVar = function() {
-        return privateVar;
-    }
-};
+  func1.setA('B');
+  t.is(func1.getA(), 'B');
+  t.is(func2.getA(), 'A');
+});
 
-var newCards = factory().create(cards);
-var someOtherThing = factory().create(otherThing);
-console.log(newCards);
-console.log(someOtherThing);
-console.log(someOtherThing.getPrivateVar()); // foo
-console.log(newCards.getCards()); // a b c
+test('it should be able to compose two functions and keep data private', t => {
+  const funcA = function() {
+    let privateVar = 'A';
 
-var composedObj = factory().compose(newCards, someOtherThing, Backbone.Events);
-console.log(composedObj);
-console.log(composedObj.getPrivateVar()); // foo
-console.log(composedObj.getCards()); // a b c
+    this.getFuncAVar = function() {
+      return privateVar;
+    };
+  };
+
+  const funcB = function() {
+    let privateVar = 'B';
+
+    this.getFuncBVar = function() {
+      return privateVar;
+    };
+  };
+
+
+  const funcA1 = factory().create(funcA);
+  const funcB1 = factory().create(funcB);
+
+  const composed = factory().compose(funcA1, funcB1, {someobject: 'foo'});
+
+  t.is(composed.getFuncBVar(), 'B');
+  t.is(composed.getFuncAVar(), 'A');
+  t.is(composed.someobject, 'foo');
+});

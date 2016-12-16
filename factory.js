@@ -29,3 +29,5 @@ const factory = function() {
         }
     };
 };
+
+export default factory;
